@@ -1,0 +1,1883 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindowDesign</class>
+ <widget class="QMainWindow" name="MainWindowDesign">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1170</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>QRosApp</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/images/icon.png</normaloff>:/images/icon.png</iconset>
+  </property>
+  <property name="locale">
+   <locale language="English" country="Australia"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>5</y>
+      <width>1161</width>
+      <height>690</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>LoadCell_UI</string>
+     </attribute>
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>271</width>
+        <height>621</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string> LOAD_CELL</string>
+      </property>
+      <widget class="QFrame" name="frame">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>30</y>
+         <width>261</width>
+         <height>591</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Shadow::Raised</enum>
+       </property>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>241</width>
+          <height>181</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string> Data</string>
+        </property>
+        <widget class="QLineEdit" name="LC_Data_07">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>145</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_3">
+         <property name="geometry">
+          <rect>
+           <x>7</x>
+           <y>119</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_2_6</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Data_03">
+         <property name="geometry">
+          <rect>
+           <x>62</x>
+           <y>145</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Data_06">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>114</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_5">
+         <property name="geometry">
+          <rect>
+           <x>85</x>
+           <y>30</y>
+           <width>37</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::RightToLeft</enum>
+         </property>
+         <property name="text">
+          <string>Left</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Data_05">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>83</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_4">
+         <property name="geometry">
+          <rect>
+           <x>7</x>
+           <y>150</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_3_7</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Data_00">
+         <property name="geometry">
+          <rect>
+           <x>62</x>
+           <y>52</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Data_04">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>52</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Data_01">
+         <property name="geometry">
+          <rect>
+           <x>62</x>
+           <y>83</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label">
+         <property name="geometry">
+          <rect>
+           <x>7</x>
+           <y>57</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_0_4</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_2">
+         <property name="geometry">
+          <rect>
+           <x>7</x>
+           <y>88</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_1_5</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_6">
+         <property name="geometry">
+          <rect>
+           <x>174</x>
+           <y>30</y>
+           <width>37</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Right</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Data_02">
+         <property name="geometry">
+          <rect>
+           <x>62</x>
+           <y>114</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>210</y>
+          <width>241</width>
+          <height>171</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string> Zero_Value</string>
+        </property>
+        <widget class="QLineEdit" name="LC_Zero_Value_07">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>137</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_7">
+         <property name="geometry">
+          <rect>
+           <x>4</x>
+           <y>109</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_2_6</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Value_03">
+         <property name="geometry">
+          <rect>
+           <x>59</x>
+           <y>137</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Value_06">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>106</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_8">
+         <property name="geometry">
+          <rect>
+           <x>85</x>
+           <y>25</y>
+           <width>37</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::RightToLeft</enum>
+         </property>
+         <property name="text">
+          <string>Left</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Value_05">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>75</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_9">
+         <property name="geometry">
+          <rect>
+           <x>4</x>
+           <y>140</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_3_7</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Value_00">
+         <property name="geometry">
+          <rect>
+           <x>59</x>
+           <y>44</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Value_04">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>44</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Value_01">
+         <property name="geometry">
+          <rect>
+           <x>59</x>
+           <y>75</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_10">
+         <property name="geometry">
+          <rect>
+           <x>4</x>
+           <y>47</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_0_4</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_11">
+         <property name="geometry">
+          <rect>
+           <x>4</x>
+           <y>78</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_1_5</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_12">
+         <property name="geometry">
+          <rect>
+           <x>174</x>
+           <y>25</y>
+           <width>37</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Right</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Value_02">
+         <property name="geometry">
+          <rect>
+           <x>59</x>
+           <y>106</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_4">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>410</y>
+          <width>241</width>
+          <height>171</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string> Unit_Value</string>
+        </property>
+        <widget class="QLineEdit" name="LC_Unit_Value_07">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>137</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_13">
+         <property name="geometry">
+          <rect>
+           <x>5</x>
+           <y>109</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_2_6</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Value_03">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>137</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Value_06">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>106</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_14">
+         <property name="geometry">
+          <rect>
+           <x>85</x>
+           <y>24</y>
+           <width>37</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::RightToLeft</enum>
+         </property>
+         <property name="text">
+          <string>Left</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Value_05">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>75</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_15">
+         <property name="geometry">
+          <rect>
+           <x>5</x>
+           <y>140</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_3_7</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Value_00">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>44</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Value_04">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>44</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Value_01">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>75</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_16">
+         <property name="geometry">
+          <rect>
+           <x>5</x>
+           <y>47</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_0_4</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_17">
+         <property name="geometry">
+          <rect>
+           <x>5</x>
+           <y>78</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_1_5</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_18">
+         <property name="geometry">
+          <rect>
+           <x>174</x>
+           <y>24</y>
+           <width>37</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Right</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Value_02">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>106</y>
+           <width>85</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_5">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>20</y>
+        <width>371</width>
+        <height>621</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string> Gain</string>
+      </property>
+      <widget class="QFrame" name="frame_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>30</y>
+         <width>361</width>
+         <height>591</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Shadow::Raised</enum>
+       </property>
+       <widget class="QGroupBox" name="groupBox_6">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>9</y>
+          <width>341</width>
+          <height>221</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string> Zero_Gain</string>
+        </property>
+        <widget class="QLabel" name="label_28">
+         <property name="geometry">
+          <rect>
+           <x>8</x>
+           <y>47</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_0_4</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Gain_07">
+         <property name="geometry">
+          <rect>
+           <x>147</x>
+           <y>137</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_25">
+         <property name="geometry">
+          <rect>
+           <x>8</x>
+           <y>109</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_2_6</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Gain_03">
+         <property name="geometry">
+          <rect>
+           <x>63</x>
+           <y>137</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Gain_06">
+         <property name="geometry">
+          <rect>
+           <x>147</x>
+           <y>106</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_26">
+         <property name="geometry">
+          <rect>
+           <x>83</x>
+           <y>21</y>
+           <width>37</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::RightToLeft</enum>
+         </property>
+         <property name="text">
+          <string>Left</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Gain_05">
+         <property name="geometry">
+          <rect>
+           <x>147</x>
+           <y>75</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_27">
+         <property name="geometry">
+          <rect>
+           <x>8</x>
+           <y>140</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_3_7</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Gain_00">
+         <property name="geometry">
+          <rect>
+           <x>63</x>
+           <y>44</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Gain_04">
+         <property name="geometry">
+          <rect>
+           <x>147</x>
+           <y>44</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Gain_01">
+         <property name="geometry">
+          <rect>
+           <x>63</x>
+           <y>75</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_29">
+         <property name="geometry">
+          <rect>
+           <x>8</x>
+           <y>78</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_1_5</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_30">
+         <property name="geometry">
+          <rect>
+           <x>166</x>
+           <y>25</y>
+           <width>37</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Right</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Zero_Gain_02">
+         <property name="geometry">
+          <rect>
+           <x>63</x>
+           <y>106</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="ZG_Reset_Button">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>170</y>
+           <width>81</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Reset</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="ZG_Insert_Button">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>170</y>
+           <width>81</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Insert</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_7">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>260</y>
+          <width>340</width>
+          <height>211</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string> Unit_gain</string>
+        </property>
+        <widget class="QLineEdit" name="LC_Unit_Gain_07">
+         <property name="geometry">
+          <rect>
+           <x>147</x>
+           <y>137</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_31">
+         <property name="geometry">
+          <rect>
+           <x>8</x>
+           <y>109</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_2_6</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Gain_03">
+         <property name="geometry">
+          <rect>
+           <x>63</x>
+           <y>137</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Gain_06">
+         <property name="geometry">
+          <rect>
+           <x>147</x>
+           <y>106</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_32">
+         <property name="geometry">
+          <rect>
+           <x>85</x>
+           <y>24</y>
+           <width>37</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::RightToLeft</enum>
+         </property>
+         <property name="text">
+          <string>Left</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Gain_05">
+         <property name="geometry">
+          <rect>
+           <x>147</x>
+           <y>75</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_33">
+         <property name="geometry">
+          <rect>
+           <x>8</x>
+           <y>140</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_3_7</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Gain_00">
+         <property name="geometry">
+          <rect>
+           <x>63</x>
+           <y>44</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Gain_04">
+         <property name="geometry">
+          <rect>
+           <x>147</x>
+           <y>44</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Gain_01">
+         <property name="geometry">
+          <rect>
+           <x>63</x>
+           <y>75</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_34">
+         <property name="geometry">
+          <rect>
+           <x>8</x>
+           <y>47</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_0_4</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_35">
+         <property name="geometry">
+          <rect>
+           <x>8</x>
+           <y>78</y>
+           <width>49</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_1_5</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_36">
+         <property name="geometry">
+          <rect>
+           <x>166</x>
+           <y>24</y>
+           <width>37</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Right</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="LC_Unit_Gain_02">
+         <property name="geometry">
+          <rect>
+           <x>63</x>
+           <y>106</y>
+           <width>78</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="UG_Push_00">
+         <property name="geometry">
+          <rect>
+           <x>235</x>
+           <y>44</y>
+           <width>45</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_0</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="UG_Push_05">
+         <property name="geometry">
+          <rect>
+           <x>285</x>
+           <y>77</y>
+           <width>44</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_5</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="UG_Push_03">
+         <property name="geometry">
+          <rect>
+           <x>235</x>
+           <y>143</y>
+           <width>45</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_3</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="UG_Push_02">
+         <property name="geometry">
+          <rect>
+           <x>235</x>
+           <y>110</y>
+           <width>45</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_2</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="UG_Push_04">
+         <property name="geometry">
+          <rect>
+           <x>285</x>
+           <y>44</y>
+           <width>44</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_4</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="UG_Push_07">
+         <property name="geometry">
+          <rect>
+           <x>285</x>
+           <y>143</y>
+           <width>44</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_7</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="UG_Push_01">
+         <property name="geometry">
+          <rect>
+           <x>235</x>
+           <y>77</y>
+           <width>45</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_1</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="UG_Reset_Button">
+         <property name="geometry">
+          <rect>
+           <x>150</x>
+           <y>170</y>
+           <width>81</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Reset</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="UG_Push_06">
+         <property name="geometry">
+          <rect>
+           <x>285</x>
+           <y>110</y>
+           <width>44</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>LC_6</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="UG_Insert_Button">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>170</y>
+           <width>81</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Insert</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="Save_Button">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>480</y>
+          <width>100</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>save</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Open_Button">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>480</y>
+          <width>100</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>open</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QCustomPlot" name="customPlot_FB" native="true">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>80</y>
+        <width>410</width>
+        <height>240</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="Line" name="line_6">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>180</y>
+        <width>31</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Plain</enum>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QCustomPlot" name="customPlot_LR" native="true">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>364</y>
+        <width>410</width>
+        <height>240</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="Line" name="line_5">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>460</y>
+        <width>31</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Plain</enum>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_19">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>430</y>
+        <width>21</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>R</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_40">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>470</y>
+        <width>21</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>L</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_87">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>190</y>
+        <width>21</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>B</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_88">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>150</y>
+        <width>21</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>F</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Coordinate</string>
+     </attribute>
+     <widget class="QLabel" name="Left_Foot_Image">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>120</y>
+        <width>241</width>
+        <height>411</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../resources/images/Left_foot.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="R_X_Coordinate">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>90</y>
+        <width>80</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_23">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>96</y>
+        <width>49</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Right</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="T_X_Coordinate">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>122</y>
+        <width>80</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_20">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>116</y>
+        <width>49</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Total</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="L_X_Coordinate">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>70</y>
+        <width>80</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_21">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>70</y>
+        <width>49</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Left</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_22">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>16</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>22</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Coodinate</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_24">
+      <property name="geometry">
+       <rect>
+        <x>810</x>
+        <y>50</y>
+        <width>49</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>X</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_37">
+      <property name="geometry">
+       <rect>
+        <x>900</x>
+        <y>50</y>
+        <width>49</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Y</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="R_Y_Coordinate">
+      <property name="geometry">
+       <rect>
+        <x>890</x>
+        <y>90</y>
+        <width>80</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="L_Y_Coordinate">
+      <property name="geometry">
+       <rect>
+        <x>890</x>
+        <y>70</y>
+        <width>80</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="T_Y_Coordinate">
+      <property name="geometry">
+       <rect>
+        <x>890</x>
+        <y>122</y>
+        <width>80</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_38">
+      <property name="geometry">
+       <rect>
+        <x>470</x>
+        <y>40</y>
+        <width>31</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>22</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>R</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_39">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>40</y>
+        <width>31</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>22</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>L</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Both_Feet_Image">
+      <property name="geometry">
+       <rect>
+        <x>715</x>
+        <y>270</y>
+        <width>390</width>
+        <height>240</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../resources/images/Feet.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="BackGround_L_Foot">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>70</y>
+        <width>320</width>
+        <height>512</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Right_Foot_Image">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>120</y>
+        <width>241</width>
+        <height>411</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../resources/images/Right_foot.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="BackGround_R_Foot">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>70</y>
+        <width>320</width>
+        <height>512</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="BackGround_Both_Feet">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>200</y>
+        <width>460</width>
+        <height>380</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="COM_X_Coordinate">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>148</y>
+        <width>80</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="COM_Y_Coordinate">
+      <property name="geometry">
+       <rect>
+        <x>890</x>
+        <y>148</y>
+        <width>80</width>
+        <height>25</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_46">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>148</y>
+        <width>49</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CoM</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_47">
+      <property name="geometry">
+       <rect>
+        <x>990</x>
+        <y>76</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>CoM : Black</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_48">
+      <property name="geometry">
+       <rect>
+        <x>990</x>
+        <y>106</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Tot : Green</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="CheckBox_UI">
+      <property name="geometry">
+       <rect>
+        <x>1050</x>
+        <y>0</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBox</string>
+      </property>
+     </widget>
+     <zorder>BackGround_Both_Feet</zorder>
+     <zorder>BackGround_R_Foot</zorder>
+     <zorder>Right_Foot_Image</zorder>
+     <zorder>BackGround_L_Foot</zorder>
+     <zorder>Left_Foot_Image</zorder>
+     <zorder>R_X_Coordinate</zorder>
+     <zorder>label_23</zorder>
+     <zorder>T_X_Coordinate</zorder>
+     <zorder>label_20</zorder>
+     <zorder>L_X_Coordinate</zorder>
+     <zorder>label_21</zorder>
+     <zorder>label_22</zorder>
+     <zorder>label_24</zorder>
+     <zorder>label_37</zorder>
+     <zorder>R_Y_Coordinate</zorder>
+     <zorder>L_Y_Coordinate</zorder>
+     <zorder>T_Y_Coordinate</zorder>
+     <zorder>label_38</zorder>
+     <zorder>label_39</zorder>
+     <zorder>Both_Feet_Image</zorder>
+     <zorder>COM_X_Coordinate</zorder>
+     <zorder>COM_Y_Coordinate</zorder>
+     <zorder>label_46</zorder>
+     <zorder>label_47</zorder>
+     <zorder>label_48</zorder>
+     <zorder>CheckBox_UI</zorder>
+    </widget>
+   </widget>
+  </widget>
+  <action name="action_Quit">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ShortcutContext::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="action_Preferences">
+   <property name="text">
+    <string>&amp;Preferences</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About &amp;Qt</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header location="global">qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>action_Quit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindowDesign</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
