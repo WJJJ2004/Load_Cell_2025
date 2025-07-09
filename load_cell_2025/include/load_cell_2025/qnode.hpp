@@ -1,8 +1,8 @@
 #ifndef load_cell_QNODE_HPP_
 #define load_cell_QNODE_HPP_
 
+#include "SerialReceiver.hpp"
 #include <rclcpp/rclcpp.hpp>
-#endif
 #include <QThread>
 #include <iostream>
 #include <sstream>
@@ -12,7 +12,6 @@
 
 #include "humanoid_interfaces/msg/zmp_msg.hpp"
 #include "humanoid_interfaces/msg/ik_com_msg.hpp"
-#include "humanoid_interfaces/msg/lc_msgs.hpp"
 
 using namespace std;
 
@@ -24,21 +23,21 @@ public:
 	~QNode();
 	bool init();
 
-	long int R_LC_Data[4];
-	long int L_LC_Data[4];
-	humanoid_interfaces::msg::LCMsgs LC_info;
-	humanoid_interfaces::msg::IkComMsg COM_info;
+	struct rawDataContainer {
+    std::vector<int32_t> l_lc_data;
+    std::vector<int32_t> r_lc_data;
+};
 
-	rclcpp::Publisher<humanoid_interfaces::msg::ZmpMsg>::SharedPtr Zmp_Pub;
+	rawDataContainer LC_info; // 시리얼로 읽은 raw 로드셀 데이터 컨테이너
+	humanoid_interfaces::msg::IkComMsg COM_info; // main window의 zmp 연산에서 사용할 COM 정보 컨테이너
+	rclcpp::Publisher<humanoid_interfaces::msg::ZmpMsg>::SharedPtr Zmp_Pub; // main_window 에서 사용할 ZMP 퍼블리셔
 protected:
 	void run();
 private:
+	SerialReceiver* serialReceiver;
 	std::shared_ptr<rclcpp::Node> node;
 
-	std::shared_ptr<rclcpp::Subscription<humanoid_interfaces::msg::LCMsgs>> loadcell_Sub;
 	std::shared_ptr<rclcpp::Subscription<humanoid_interfaces::msg::IkComMsg>> COM_Sub;
-
-	void LoadCell_Callback(const humanoid_interfaces::msg::LCMsgs::SharedPtr msg);
 	void COM_Callback(const humanoid_interfaces::msg::IkComMsg::SharedPtr msg);
 Q_SIGNALS:
 	void rosShutDown();

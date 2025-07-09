@@ -20,37 +20,22 @@
 #include <fstream>
 
 // MSG_HEADER //
-#include "humanoid_interfaces/msg/ik_com_msg.hpp"
 #include "humanoid_interfaces/msg/ik_ltc_msg.hpp"
 #include "humanoid_interfaces/msg/lc_msgs.hpp"
-
-// ROS1 MSG_HEADER 삭제 요망
-// #include <msg_generate/Serial2LC_msg.h>
-// #include <msg_generate/R_LC_msg.h>
-// #include <msg_generate/L_LC_msg.h>
-// #include <msg_generate/com_msg.h>
 
 #define median_cnt 5
 #define PI 3.141592653589793
 
 #define LC_NUM 8
+#define LC_NUM_2 4
 #define LEFT_FOOT     0
 #define RIGHT_FOOT    1
 
-/*****************************************************************************
-** Namespace
-*****************************************************************************/
 using namespace std;
 
 namespace load_cell {
-
-/*****************************************************************************
-** Interface [MainWindow]
-*****************************************************************************/
-/**
- * @brief Qt central, all operations relating to the view part here.
- */
-class MainWindow : public QMainWindow {
+class MainWindow : public QMainWindow
+{
 Q_OBJECT
 
 public:
@@ -59,21 +44,15 @@ public:
 
     // ROS2 MSG //
     humanoid_interfaces::msg::ZmpMsg zmp;
-    humanoid_interfaces::msg::IkComMsg COM_info;
 
-
-    QSerialPort *serial;
-
-    bool open_serial();
     void paintEvent(QPaintEvent *event);
 
-    QByteArray Tx_data;
+    long int R_LC_Data[LC_NUM_2] = {0,};
+    long int L_LC_Data[LC_NUM_2] = {0,};
 
-    long int R_LC_Data[LC_NUM] = {0,};
-    long int L_LC_Data[LC_NUM] = {0,};
-
-    long int R_LC_Data_Filtering[LC_NUM] = {0,};
-    long int L_LC_Data_Filtering[LC_NUM] = {0,};
+    // ********** LoadCell LPF Data container ********** //
+    // long int R_LC_Data_Filtering[LC_NUM] = {0,};
+    // long int L_LC_Data_Filtering[LC_NUM] = {0,};
 
     long int LC_Zero_Value[LC_NUM] = {0,};
     double LC_Unit_Value[LC_NUM] = {0,};
@@ -86,9 +65,6 @@ public:
 
     long int add2zero[LC_NUM] = {0,};
     long int add2unit[LC_NUM] = {0,};
-
-    bool Zero_flag = false;
-    bool Unit_flag = false;
 
     int load_cell_median_buffer[8][median_cnt] = {{0,},{0,},{0,},{0,},{0,},{0,},{0,},{0,}};
 
@@ -122,6 +98,8 @@ public Q_SLOTS:
     void makePlot();
     void Plot_init();
     void update();
+
+    // ******* Filter Functions ******* //
     void median(int data_1,int data_2,int data_3,int data_4,int data_5,int data_6,int data_7,int data_8);
     long int Low_pass_filter(long int initial_data);
     long int avg(long int x);
@@ -154,7 +132,7 @@ private:
 	QNode *qnode;
     QTimer *timer;
 
-    // UI 리셋
+    // File IO 과정에서 UI 리셋
     void resetLineEditStyle()
     {
         QLineEdit* zeroGainEdits[8] = {

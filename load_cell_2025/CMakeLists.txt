@@ -49,11 +49,12 @@ add_executable(${PROJECT_NAME}
 target_sources(${PROJECT_NAME} PRIVATE ${THIRD_PARTY_HPP})
 ament_target_dependencies(${PROJECT_NAME} rclcpp  Boost std_msgs humanoid_interfaces)
 target_link_libraries(
-  ${PROJECT_NAME} 
-  Qt5::Widgets 
-  Qt5::Core 
-  Qt5::Gui 
+  ${PROJECT_NAME}
+  Qt5::Widgets
+  Qt5::Core
+  Qt5::Gui
   Qt5::Network
+  Qt5::SerialPort
 )
 
 install(TARGETS ${PROJECT_NAME} DESTINATION lib/${PROJECT_NAME})

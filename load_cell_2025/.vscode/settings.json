@@ -110,6 +110,10 @@
         "valarray": "cpp",
         "variant": "cpp",
         "qserialportinfo": "cpp",
-        "qserialport": "cpp"
+        "qserialport": "cpp",
+        "qmessagebox": "cpp",
+        "qpainter": "cpp",
+        "*.txx": "cpp",
+        "qstringlistmodel": "cpp"
     }
 }

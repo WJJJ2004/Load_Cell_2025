@@ -1,6 +1,5 @@
 #include "../include/load_cell_2025/main_window.hpp"
 
-//MAF
 #define FILTERDATA 5
 long int temp[FILTERDATA];
 
@@ -10,7 +9,6 @@ using namespace Qt;
 using namespace std;
 
 int serial_cnt = 0;
-
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindowDesign)
 {
@@ -56,13 +54,11 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
         LC_Zero_Gain[i] = 1;
     }
 
-    /////////////////////////////      LOAD   FILE   /////////////////////////////////////
-
     QString real_path = QDir::homePath() + "/colcon_ws/src/load_cell_2025/work/R1_0511_100g";
     ifstream is(real_path.toUtf8().constData());
     if(is.is_open())
     {
-        cout<<"INIT FILE OPEN "<<endl;
+        cout << "INIT FILE OPEN "<< endl;
         is >> LC_Zero_Gain[0];
         is >> LC_Zero_Gain[1];
         is >> LC_Zero_Gain[2];
@@ -127,7 +123,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 void MainWindow::LoadCell_Callback()
 {
-    if(ui->CheckBox_UI->isChecked()){ //CheckBox = 1일 때 Plot작동
+    if(ui->CheckBox_UI->isChecked()){ // CheckBox = 1일 때 Plot작동
         if(!(timer->isActive()))
             timer->start(10);
     }
@@ -137,15 +133,19 @@ void MainWindow::LoadCell_Callback()
     }
 
     serial_cnt++;
-    for(int i = 0; i < LC_NUM/2; i++) //Right, Left 나눠서 LoadCell값 저장
+    for(int i = 0; i < LC_NUM/2; i++) // Right, Left 나눠서 LoadCell값 저장
     {
         L_LC_Data[i] = qnode->LC_info.l_lc_data[i];
         R_LC_Data[i] = qnode->LC_info.r_lc_data[i];
-//        L_LC_Data[i] = avg(L_LC_Data[i]);
-//        R_LC_Data[i] = avg(R_LC_Data[i]);
+    // ******************** Filtering ********************
 
-//        R_LC_Data_Filtering[i] = Low_pass_filter(R_LC_Data[i]);
-//        L_LC_Data_Filtering[i] = Low_pass_filter(L_LC_Data[i]);
+    //        L_LC_Data[i] = avg(L_LC_Data[i]);
+    //        R_LC_Data[i] = avg(R_LC_Data[i]);
+
+    //        R_LC_Data_Filtering[i] = Low_pass_filter(R_LC_Data[i]);
+    //        L_LC_Data_Filtering[i] = Low_pass_filter(L_LC_Data[i]);
+
+    // ***************************************************
     }
 
     ui->LC_Data_00->setText(QString::number(L_LC_Data[0]));
@@ -158,14 +158,14 @@ void MainWindow::LoadCell_Callback()
     ui->LC_Data_06->setText(QString::number(R_LC_Data[2]));
     ui->LC_Data_07->setText(QString::number(R_LC_Data[3]));
 
-    for(int i = 0; i < LC_NUM; i++) //단위 변환한 LoadCell값
+    for(int i = 0; i < LC_NUM; i++) // 단위 변환한 LoadCell값
     {
         if(i < 4)
         {
             LC_Zero_Value[i] = abs(L_LC_Data[i] - add2zero[i]);
             LC_Unit_Value[i] = double(LC_Zero_Value[i]) / double(add2unit[i]);
         }
-        if(i >= 4)
+        else // if(i >= 4)
         {
             LC_Zero_Value[i] = abs(R_LC_Data[i-4] - add2zero[i]);
             LC_Unit_Value[i] = double(LC_Zero_Value[i]) / double(add2unit[i]);
@@ -196,7 +196,7 @@ void MainWindow::LoadCell_Callback()
     LC_Pos_Y_Value[7] = -(LC_Unit_Value[7]);
 
     ////////T_R////////_It's depends on how wide your legs are.
-    LC_T_Pos_X_Value[0] = -2.4*(LC_Unit_Value[0]); //한 발 지지와 원점이 다르기 때문에 거리 비율 계산해서 곱하기
+    LC_T_Pos_X_Value[0] = -2.4*(LC_Unit_Value[0]);          //한 발 지지와 원점이 다르기 때문에 거리 비율 계산해서 곱하기
     LC_T_Pos_X_Value[1] = -0.4*(LC_Unit_Value[1]);
     LC_T_Pos_X_Value[2] = -2.4*(LC_Unit_Value[2]);
     LC_T_Pos_X_Value[3] = -0.4*(LC_Unit_Value[3]);
@@ -467,8 +467,13 @@ long int MainWindow::avg(long int x)
 
 void MainWindow::makePlot()
 {
-    static QTime time(QTime::currentTime());
-    double key = static_cast<double>(time.elapsed())/70.0;
+    static QElapsedTimer time;
+    if(!time.isValid())
+    {
+        time.start();
+    }
+    double key = time.elapsed()/70.0; // time interval for plot update
+
     static double lastPointKey = 0;
 
     if(key - lastPointKey > 0.0001)
@@ -609,7 +614,6 @@ void MainWindow::median(int data_1,int data_2,int data_3,int data_4,int data_5,i
 
 void MainWindow::update()
 {
-//    cout<<"AAAAAAAAAAAAAAAAAA"<<endl;
     repaint();
 }
 void MainWindow::paintEvent(QPaintEvent *event)
@@ -820,6 +824,7 @@ void load_cell::MainWindow::on_ZG_Reset_Button_clicked()
     add2zero[6] = ui->LC_Zero_Gain_06->text().toLong();
     add2zero[7] = ui->LC_Zero_Gain_07->text().toLong();
 
+    // ******** reset UX ***********
     ui->LC_Zero_Gain_00->setStyleSheet("background-color: lightcoral;");
     ui->LC_Zero_Gain_01->setStyleSheet("background-color: lightcoral;");
     ui->LC_Zero_Gain_02->setStyleSheet("background-color: lightcoral;");
@@ -828,6 +833,9 @@ void load_cell::MainWindow::on_ZG_Reset_Button_clicked()
     ui->LC_Zero_Gain_05->setStyleSheet("background-color: lightcoral;");
     ui->LC_Zero_Gain_06->setStyleSheet("background-color: lightcoral;");
     ui->LC_Zero_Gain_07->setStyleSheet("background-color: lightcoral;");
+
+    ui->ZG_Reset_Button->setEnabled(false);
+    ui->ZG_Insert_Button->setEnabled(true);
 }
 void load_cell::MainWindow::on_ZG_Insert_Button_clicked()
 {
@@ -855,14 +863,17 @@ void load_cell::MainWindow::on_ZG_Insert_Button_clicked()
     ui->LC_Zero_Gain_07->setText(ui->LC_Data_07->text());
     add2zero[7] = ui->LC_Zero_Gain_07->text().toLong();
 
-    ui->LC_Zero_Gain_00->setStyleSheet("background-color: #66BB6A; color: white;");
-    ui->LC_Zero_Gain_01->setStyleSheet("background-color: #66BB6A; color: white;");
-    ui->LC_Zero_Gain_02->setStyleSheet("background-color: #66BB6A; color: white;");
-    ui->LC_Zero_Gain_03->setStyleSheet("background-color: #66BB6A; color: white;");
-    ui->LC_Zero_Gain_04->setStyleSheet("background-color: #66BB6A; color: white;");
-    ui->LC_Zero_Gain_05->setStyleSheet("background-color: #66BB6A; color: white;");
-    ui->LC_Zero_Gain_06->setStyleSheet("background-color: #66BB6A; color: white;");
-    ui->LC_Zero_Gain_07->setStyleSheet("background-color: #66BB6A; color: white;");
+    ui->LC_Zero_Gain_00->setStyleSheet("background-color: #66BB6A; ");
+    ui->LC_Zero_Gain_01->setStyleSheet("background-color: #66BB6A; ");
+    ui->LC_Zero_Gain_02->setStyleSheet("background-color: #66BB6A; ");
+    ui->LC_Zero_Gain_03->setStyleSheet("background-color: #66BB6A; ");
+    ui->LC_Zero_Gain_04->setStyleSheet("background-color: #66BB6A; ");
+    ui->LC_Zero_Gain_05->setStyleSheet("background-color: #66BB6A; ");
+    ui->LC_Zero_Gain_06->setStyleSheet("background-color: #66BB6A; ");
+    ui->LC_Zero_Gain_07->setStyleSheet("background-color: #66BB6A; ");
+
+    ui->ZG_Reset_Button->setEnabled(true);
+    ui->ZG_Insert_Button->setEnabled(false);
 }
 
 // specific unit gain puxh
@@ -870,54 +881,57 @@ void load_cell::MainWindow::on_UG_Push_00_clicked()
 {
     ui->LC_Unit_Gain_00->setText(ui->LC_Zero_Value_00->text());
     add2unit[0] = ui->LC_Unit_Gain_00->text().toLong();
-    ui->LC_Unit_Gain_00->setStyleSheet("background-color: #66BB6A; color: white;");
+    ui->LC_Unit_Gain_00->setStyleSheet("background-color: #66BB6A; ");
+    ui->UG_Push_00->setEnabled(false);
 }
 void load_cell::MainWindow::on_UG_Push_01_clicked()
 {
     ui->LC_Unit_Gain_01->setText(ui->LC_Zero_Value_01->text());
     add2unit[1] = ui->LC_Unit_Gain_01->text().toLong();
-    ui->LC_Unit_Gain_01->setStyleSheet("background-color: #66BB6A; color: white;");
+    ui->LC_Unit_Gain_01->setStyleSheet("background-color: #66BB6A; ");
+    ui->UG_Push_01->setEnabled(false);
 }
 void load_cell::MainWindow::on_UG_Push_02_clicked()
 {
     ui->LC_Unit_Gain_02->setText(ui->LC_Zero_Value_02->text());
     add2unit[2] = ui->LC_Unit_Gain_02->text().toLong();
-    ui->LC_Unit_Gain_02->setStyleSheet("background-color: #66BB6A; color: white;");
-
+    ui->LC_Unit_Gain_02->setStyleSheet("background-color: #66BB6A; ");
+    ui->UG_Push_02->setEnabled(false);
 }
 void load_cell::MainWindow::on_UG_Push_03_clicked()
 {
     ui->LC_Unit_Gain_03->setText(ui->LC_Zero_Value_03->text());
     add2unit[3] = ui->LC_Unit_Gain_03->text().toLong();
-    ui->LC_Unit_Gain_03->setStyleSheet("background-color: #66BB6A; color: white;");
+    ui->LC_Unit_Gain_03->setStyleSheet("background-color: #66BB6A; ");
+    ui->UG_Push_03->setEnabled(false);
 }
 void load_cell::MainWindow::on_UG_Push_04_clicked()
 {
     ui->LC_Unit_Gain_04->setText(ui->LC_Zero_Value_04->text());
     add2unit[4] = ui->LC_Unit_Gain_04->text().toLong();
-    ui->LC_Unit_Gain_04->setStyleSheet("background-color: #66BB6A; color: white;");
-
+    ui->LC_Unit_Gain_04->setStyleSheet("background-color: #66BB6A; ");
+    ui->UG_Push_04->setEnabled(false);
 }
 void load_cell::MainWindow::on_UG_Push_05_clicked()
 {
     ui->LC_Unit_Gain_05->setText(ui->LC_Zero_Value_05->text());
     add2unit[5] = ui->LC_Unit_Gain_05->text().toLong();
-    ui->LC_Unit_Gain_05->setStyleSheet("background-color: #66BB6A; color: white;");
-
+    ui->LC_Unit_Gain_05->setStyleSheet("background-color: #66BB6A; ");
+    ui->UG_Push_05->setEnabled(false);
 }
 void load_cell::MainWindow::on_UG_Push_06_clicked()
 {
     ui->LC_Unit_Gain_06->setText(ui->LC_Zero_Value_06->text());
     add2unit[6] = ui->LC_Unit_Gain_06->text().toLong();
-    ui->LC_Unit_Gain_06->setStyleSheet("background-color: #66BB6A; color: white;");
-
+    ui->LC_Unit_Gain_06->setStyleSheet("background-color: #66BB6A; ");
+    ui->UG_Push_06->setEnabled(false);
 }
 void load_cell::MainWindow::on_UG_Push_07_clicked()
 {
     ui->LC_Unit_Gain_07->setText(ui->LC_Zero_Value_07->text());
     add2unit[7] = ui->LC_Unit_Gain_07->text().toLong();
-    ui->LC_Unit_Gain_07->setStyleSheet("background-color: #66BB6A; color: white;");
-
+    ui->LC_Unit_Gain_07->setStyleSheet("background-color: #66BB6A; ");
+    ui->UG_Push_07->setEnabled(false);
 }
 
 // Unit Gain IO
@@ -956,45 +970,67 @@ void load_cell::MainWindow::on_UG_Reset_Button_clicked()
     ui->LC_Unit_Gain_06->setStyleSheet("background-color: lightcoral;");
     ui->LC_Unit_Gain_07->setStyleSheet("background-color: lightcoral;");
 
+    ui->UG_Reset_Button->setEnabled(false);
+    ui->UG_Insert_Button->setEnabled(true);
+
+    ui->UG_Push_00->setEnabled(true);
+    ui->UG_Push_01->setEnabled(true);
+    ui->UG_Push_02->setEnabled(true);
+    ui->UG_Push_03->setEnabled(true);
+    ui->UG_Push_04->setEnabled(true);
+    ui->UG_Push_05->setEnabled(true);
+    ui->UG_Push_06->setEnabled(true);
+    ui->UG_Push_07->setEnabled(true);
 }
 
 void MainWindow::on_UG_Insert_Button_clicked()
 {
     ui->LC_Unit_Gain_00->setText(ui->LC_Zero_Value_00->text());
     add2unit[0] = ui->LC_Unit_Gain_00->text().toLong();
-    ui->LC_Unit_Gain_00->setStyleSheet("background-color: #66BB6A; color: white;");
+    ui->LC_Unit_Gain_00->setStyleSheet("background-color: #66BB6A; ");
 
     ui->LC_Unit_Gain_01->setText(ui->LC_Zero_Value_01->text());
     add2unit[1] = ui->LC_Unit_Gain_01->text().toLong();
-    ui->LC_Unit_Gain_01->setStyleSheet("background-color: #66BB6A; color: white;");
+    ui->LC_Unit_Gain_01->setStyleSheet("background-color: #66BB6A; ");
 
     ui->LC_Unit_Gain_02->setText(ui->LC_Zero_Value_02->text());
     add2unit[2] = ui->LC_Unit_Gain_02->text().toLong();
-    ui->LC_Unit_Gain_02->setStyleSheet("background-color: #66BB6A; color: white;");
+    ui->LC_Unit_Gain_02->setStyleSheet("background-color: #66BB6A; ");
 
     ui->LC_Unit_Gain_03->setText(ui->LC_Zero_Value_03->text());
     add2unit[3] = ui->LC_Unit_Gain_03->text().toLong();
-    ui->LC_Unit_Gain_03->setStyleSheet("background-color: #66BB6A; color: white;");
+    ui->LC_Unit_Gain_03->setStyleSheet("background-color: #66BB6A; ");
 
     ui->LC_Unit_Gain_04->setText(ui->LC_Zero_Value_04->text());
     add2unit[4] = ui->LC_Unit_Gain_04->text().toLong();
-    ui->LC_Unit_Gain_04->setStyleSheet("background-color: #66BB6A; color: white;");
+    ui->LC_Unit_Gain_04->setStyleSheet("background-color: #66BB6A; ");
 
     ui->LC_Unit_Gain_05->setText(ui->LC_Zero_Value_05->text());
     add2unit[5] = ui->LC_Unit_Gain_05->text().toLong();
-    ui->LC_Unit_Gain_05->setStyleSheet("background-color: #66BB6A; color: white;");
+    ui->LC_Unit_Gain_05->setStyleSheet("background-color: #66BB6A; ");
 
     ui->LC_Unit_Gain_06->setText(ui->LC_Zero_Value_06->text());
     add2unit[6] = ui->LC_Unit_Gain_06->text().toLong();
-    ui->LC_Unit_Gain_06->setStyleSheet("background-color: #66BB6A; color: white;");
+    ui->LC_Unit_Gain_06->setStyleSheet("background-color: #66BB6A; ");
 
     ui->LC_Unit_Gain_07->setText(ui->LC_Zero_Value_07->text());
     add2unit[7] = ui->LC_Unit_Gain_07->text().toLong();
-    ui->LC_Unit_Gain_07->setStyleSheet("background-color: #66BB6A; color: white;");
+    ui->LC_Unit_Gain_07->setStyleSheet("background-color: #66BB6A; ");
+
+    ui->UG_Reset_Button->setEnabled(true);
+    ui->UG_Insert_Button->setEnabled(false);
+
+    ui->UG_Push_00->setEnabled(false);
+    ui->UG_Push_01->setEnabled(false);
+    ui->UG_Push_02->setEnabled(false);
+    ui->UG_Push_03->setEnabled(false);
+    ui->UG_Push_04->setEnabled(false);
+    ui->UG_Push_05->setEnabled(false);
+    ui->UG_Push_06->setEnabled(false);
+    ui->UG_Push_07->setEnabled(false);
 }
 
 MainWindow::~MainWindow() {
-    serial->close();
 }
 
 } // namespace load_cell
