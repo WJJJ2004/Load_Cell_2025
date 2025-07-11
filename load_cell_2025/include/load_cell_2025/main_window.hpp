@@ -50,10 +50,12 @@ public:
     long int R_LC_Data[LC_NUM_2] = {0,};
     long int L_LC_Data[LC_NUM_2] = {0,};
 
-    // ********** LoadCell LPF Data container ********** //
+// ******************** LoadCell LPF Data container ********************
+
     // long int R_LC_Data_Filtering[LC_NUM] = {0,};
     // long int L_LC_Data_Filtering[LC_NUM] = {0,};
-    // ************************************************* // 
+
+// *********************************************************************
 
     long int LC_Zero_Value[LC_NUM] = {0,};
     double LC_Unit_Value[LC_NUM] = {0,};
@@ -96,15 +98,15 @@ public Q_SLOTS:
 
     void LoadCell_Callback();
     void Zero_reset(int foot_what);
-    void makePlot();
-    void Plot_init();
     void update();
 
-    // ******* Filter Functions ******* //
+// *************************** Filter Functions ************************
+
     void median(int data_1,int data_2,int data_3,int data_4,int data_5,int data_6,int data_7,int data_8);
     long int Low_pass_filter(long int initial_data);
     long int avg(long int x);
-    // ********************************** //
+
+// *********************************************************************
 
 private Q_SLOTS:
     // specific Unit Gain Push
@@ -128,11 +130,39 @@ private Q_SLOTS:
     // Unit gain insert
     void on_UG_Insert_Button_clicked();
     void on_UG_Reset_Button_clicked();
+
+    // filter plot
+    void on_manager_on_toggled(bool checked);
+    void on_yScaleSlider_valueChanged(int value);
+
+    void on_filter_button_0_clicked();
+    void on_filter_button_1_clicked();
+    void on_filter_button_2_clicked();
+    void on_filter_button_3_clicked();
+    void on_filter_button_4_clicked();
+    void on_filter_button_5_clicked();
+    void on_filter_button_6_clicked();
+    void on_filter_button_7_clicked();
 private:
+
+// ***************** QCUSTOMPLOT MANAGE *********************
+
+    QMap<QString, QCustomPlot*> plot_map;
+    QMap<QString, QVector<QPair<double, double>>> plot_data; // for storing plot data
+    QElapsedTimer plot_timer;
+
+    int selected_sensor_index = -1;
+    bool plot_enabled = false;
+
+    void registerPlot(const QString& name, QCustomPlot* plot, bool fixedYAxis = false);
+    void Plot_init();
+    void plotArtist();
+
 	Ui::MainWindowDesign *ui;
 	QNode *qnode;
     QTimer *timer;
 
+// ************************ UI MANAGE ****************************
     // File IO 과정에서 UI 리셋
     void resetLineEditStyle()
     {
@@ -151,6 +181,20 @@ private:
             unitGainEdits[i]->setStyleSheet("background-color: white; color: black;");
         }
     };
+    void updateFilterButtons(int selected_index)
+    {
+        selected_sensor_index = selected_index;
+
+        for (int i = 0; i < 8; ++i)
+        {
+            QString buttonName = QString("filter_button_%1").arg(i);
+            QPushButton* button = this->findChild<QPushButton*>(buttonName);
+
+            if (button)
+                button->setEnabled(i != selected_index);  // 자기 자신은 비활성화
+        }
+    };
+// *****************************************************************
 };
 
 }  // namespace load_cell

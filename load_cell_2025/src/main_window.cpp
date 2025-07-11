@@ -21,14 +21,19 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     setWindowIcon(QIcon(":/images/zmp_icon.png"));
 
+    /// ************************ INIT CUSTOM PLOT *************************
+
+    Plot_init();         // 그래프 등록
+    plotArtist();
+
     QObject::connect(qnode, SIGNAL(rosShutDown()), this, SLOT(close()));
     QObject::connect(qnode, SIGNAL(LC_callback()),this, SLOT(LoadCell_Callback())); //works whenever 'load_cell value' comes in through serial
 
     timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()),this, SLOT(makePlot()));
+    connect(timer, &QTimer::timeout, this, &MainWindow::plotArtist);
     connect(timer, SIGNAL(timeout()),this, SLOT(update()));
-    MainWindow::makePlot();
-    Plot_init();
+
+    // *********************************************************************
 
     ui->LC_Zero_Gain_00->setReadOnly(true);
     ui->LC_Zero_Gain_01->setReadOnly(true);
@@ -54,7 +59,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
         LC_Zero_Gain[i] = 1;
     }
 
-    QString real_path = QDir::homePath() + "/colcon_ws/src/load_cell_2025/work/R1_0511_100g";
+    QString real_path = QDir::homePath() + "/colcon_ws/src/load_cell_2025/work/fixed_path";
     ifstream is(real_path.toUtf8().constData());
     if(is.is_open())
     {
@@ -137,6 +142,7 @@ void MainWindow::LoadCell_Callback()
     {
         L_LC_Data[i] = qnode->LC_info.l_lc_data[i];
         R_LC_Data[i] = qnode->LC_info.r_lc_data[i];
+
     // ******************** Filtering ********************
 
     //        L_LC_Data[i] = avg(L_LC_Data[i]);
@@ -146,6 +152,7 @@ void MainWindow::LoadCell_Callback()
     //        L_LC_Data_Filtering[i] = Low_pass_filter(L_LC_Data[i]);
 
     // ***************************************************
+
     }
 
     ui->LC_Data_00->setText(QString::number(L_LC_Data[0]));
@@ -465,98 +472,6 @@ long int MainWindow::avg(long int x)
     return /*data[4];*/ average;
 }
 
-void MainWindow::makePlot()
-{
-    static QElapsedTimer time;
-    if(!time.isValid())
-    {
-        time.start();
-    }
-    double key = time.elapsed()/70.0; // time interval for plot update
-
-    static double lastPointKey = 0;
-
-    if(key - lastPointKey > 0.0001)
-    {
-        ui->customPlot_LR->graph(0)->addData(key, T_Pos_X_Coordinate);
-        ui->customPlot_FB->graph(0)->addData(key, T_Pos_Y_Coordinate);
-        //        ui->customPlot->graph(1)->addData(key, R_Pos_Y_Coordinate);
-
-        lastPointKey = key;
-    }
-
-    //    ui->customPlot->graph(0)->rescaleValueAxis();
-    ui->customPlot_LR->xAxis->setRange(key,100,Qt::AlignRight);
-    ui->customPlot_FB->xAxis->setRange(key,100,Qt::AlignRight);
-    ui->customPlot_LR->replot();
-    ui->customPlot_FB->replot();
-
-    serial_cnt = 0;
-}
-
-void MainWindow::Plot_init()
-{
-    ui->customPlot_LR->addGraph();
-    ui->customPlot_LR->graph(0)->setPen(QPen(Qt::red));
-    ui->customPlot_LR->graph(0)->setAntialiasedFill(false);
-    //    ui->customPlot_LR->addGraph();
-    //    ui->customPlot_LR->graph(1)->setPen(QPen(Qt::blue));
-    //    ui->customPlot_LR->graph(1)->setAntialiasedFill(false);
-    ui->customPlot_LR->setBackground(QColor(255,255,255));
-
-    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
-    timeTicker->setTimeFormat("%s");
-    ui->customPlot_LR->xAxis->setTicker(timeTicker);
-    ui->customPlot_LR->axisRect()->setupFullAxesBox();
-
-    ui->customPlot_LR->xAxis->setTickLabelFont(QFont(QFont().family(),10));
-    ui->customPlot_LR->yAxis->setTickLabelFont(QFont(QFont().family(),10));
-    ui->customPlot_LR->xAxis->setBasePen(QPen(Qt::black));
-    ui->customPlot_LR->yAxis->setTickPen(QPen(Qt::black));
-    ui->customPlot_LR->xAxis->setTickLabelColor(Qt::black);
-    ui->customPlot_LR->xAxis->setLabelColor(Qt::black);
-    ui->customPlot_LR->xAxis->setLabel("Time(s)");
-    ui->customPlot_LR->yAxis->setTickLabelColor(Qt::black);
-    ui->customPlot_LR->yAxis->setLabelColor(Qt::black);
-    ui->customPlot_LR->yAxis->setRange(-300,300);
-    ui->customPlot_LR->xAxis2->setVisible(true);
-    ui->customPlot_LR->yAxis->setVisible(true);
-    ui->customPlot_LR->xAxis2->setTicks(true);
-    ui->customPlot_LR->yAxis2->setTicks(true);
-    ui->customPlot_LR->xAxis2->setTickLabels(true);
-    ui->customPlot_LR->yAxis2->setTickLabels(true);
-
-    ui->customPlot_FB->addGraph();
-    ui->customPlot_FB->graph(0)->setPen(QPen(Qt::red));
-    ui->customPlot_FB->graph(0)->setAntialiasedFill(false);
-    //    ui->customPlot_LR->addGraph();
-    //    ui->customPlot_LR->graph(1)->setPen(QPen(Qt::blue));
-    //    ui->customPlot_LR->graph(1)->setAntialiasedFill(false);
-    ui->customPlot_FB->setBackground(QColor(255,255,255));
-
-//    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
-    timeTicker->setTimeFormat("%s");
-    ui->customPlot_FB->xAxis->setTicker(timeTicker);
-    ui->customPlot_FB->axisRect()->setupFullAxesBox();
-
-    ui->customPlot_FB->xAxis->setTickLabelFont(QFont(QFont().family(),10));
-    ui->customPlot_FB->yAxis->setTickLabelFont(QFont(QFont().family(),10));
-    ui->customPlot_FB->xAxis->setBasePen(QPen(Qt::black));
-    ui->customPlot_FB->yAxis->setTickPen(QPen(Qt::black));
-    ui->customPlot_FB->xAxis->setTickLabelColor(Qt::black);
-    ui->customPlot_FB->xAxis->setLabelColor(Qt::black);
-    ui->customPlot_FB->xAxis->setLabel("Time(s)");
-    ui->customPlot_FB->yAxis->setTickLabelColor(Qt::black);
-    ui->customPlot_FB->yAxis->setLabelColor(Qt::black);
-    ui->customPlot_FB->yAxis->setRange(-200,200);
-    ui->customPlot_FB->xAxis2->setVisible(true);
-    ui->customPlot_FB->yAxis->setVisible(true);
-    ui->customPlot_FB->xAxis2->setTicks(true);
-    ui->customPlot_FB->yAxis2->setTicks(true);
-    ui->customPlot_FB->xAxis2->setTickLabels(true);
-    ui->customPlot_FB->yAxis2->setTickLabels(true);
-}
-
 int compare(const void *a, const void *b)
 {
     const int* x = (int*)a;
@@ -618,8 +533,7 @@ void MainWindow::update()
 }
 void MainWindow::paintEvent(QPaintEvent *event)
 {
-    //    //====================================FOOT_ZMP_LOCATION===================================//
-    //    //Background
+// ****************************** Foot Image Painter ******************************
         QPixmap pixmap_1(":/images/Right_foot.png");
         pixmap_1 = pixmap_1.scaled(QSize(160,256));//foot size
         QPainter painter_r_foot(&pixmap_1);
@@ -1033,7 +947,168 @@ void MainWindow::on_UG_Insert_Button_clicked()
 MainWindow::~MainWindow() {
 }
 
+
+// filter plot
+void MainWindow::on_manager_on_toggled(bool checked)
+{
+
+}
+
+void MainWindow::on_yScaleSlider_valueChanged(int value)
+{
+    plotArtist();
+}
+
+// ********************************** QCUSTOMPLOT MANAGE ***************************************
+void MainWindow::registerPlot(const QString& name, QCustomPlot* plot, bool fixedYAxis) // called by plot_init
+{
+    // 2022년도 버전의 Plot_init()을 리팩토링함
+    plot_map[name] = plot;
+
+    plot->addGraph();
+    plot->graph(0)->setPen(QPen(Qt::red));
+    plot->setBackground(QColor(255,255,255));
+
+    QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
+    timeTicker->setTimeFormat("%s");
+    plot->xAxis->setTicker(timeTicker);
+    plot->xAxis->setLabel("Time (100ms)");
+    plot->yAxis->setLabel(name);
+    plot->axisRect()->setupFullAxesBox();
+
+    plot->xAxis->setTickLabelFont(QFont(QFont().family(),10));
+    plot->yAxis->setTickLabelFont(QFont(QFont().family(),10));
+
+    plot->xAxis->setTickLabelColor(Qt::black);
+    plot->xAxis->setLabelColor(Qt::black);
+    plot->yAxis->setTickLabelColor(Qt::black);
+    plot->yAxis->setLabelColor(Qt::black);
+    plot->xAxis2->setTickLabelColor(Qt::black);
+    plot->yAxis2->setTickLabelColor(Qt::black);
+    plot->xAxis2->setLabelColor(Qt::black);
+    plot->yAxis2->setLabelColor(Qt::black);
+
+    plot->xAxis2->setVisible(true);
+    plot->yAxis2->setVisible(true);
+    plot->xAxis2->setTicks(true);
+    plot->yAxis2->setTicks(true);
+    plot->xAxis2->setTickLabels(true);
+    plot->yAxis2->setTickLabels(true);
+
+    if (fixedYAxis)
+    {
+        if (name == "LR")
+            plot->yAxis->setRange(-300, 300);
+        else if (name == "FB")
+            plot->yAxis->setRange(-200, 200);
+    }
+    else
+    {
+        // *********** ??? *--********
+    }
+}
+
+void MainWindow::Plot_init()
+{
+    registerPlot("LR", ui->customPlot_LR, true);
+    registerPlot("FB", ui->customPlot_FB, true);
+    registerPlot("Filter", ui->customPlot_raw_data);
+}
+
+void MainWindow::plotArtist() // make_plot
+{
+    if (!plot_timer.isValid())
+        plot_timer.start();
+
+    double key = plot_timer.elapsed() / 100.0; // time interval >> 100 ms
+
+// *************************** ADD ADITIONAL PLOT DATA HERE ******************************
+
+    plot_data["LR"].append(qMakePair(key, T_Pos_X_Coordinate));
+    plot_data["FB"].append(qMakePair(key, T_Pos_Y_Coordinate));
+
+// *************************** ADD ADITIONAL PLOT DATA HERE ******************************
+
+    if (ui->manager_on->isChecked()) // FILTER PLOT PAGE
+    {
+        plot_data["Filter"].append(qMakePair(key, LC_Unit_Value[selected_sensor_index]));
+
+        cout << "LC_Unit_Value[selected_sensor_index]:"<< LC_Unit_Value[selected_sensor_index] << endl;
+    }
+
+    for (auto it = plot_map.begin(); it != plot_map.end(); ++it)
+    {
+        const QString& name = it.key();
+        QCustomPlot* plot = it.value();
+        QVector<QPair<double, double>>& data = plot_data[name];
+
+        if (data.size() > 1000)                  // PLOT 초기화 문제시 삭제 필요
+            data.remove(0, data.size() - 1000);
+
+        QVector<double> x, y;
+
+        for (const auto& p : data) {
+            x.append(p.first);
+            y.append(p.second);
+        }
+
+        plot->graph(0)->setData(x, y);
+        plot->xAxis->setRange(x.last(), 100, Qt::AlignRight);
+
+        if (name != "LR" && name != "FB") {
+            int yRange = ui->yScaleSlider->value();
+            plot->yAxis->setRange(-yRange, yRange);
+        }
+        plot->replot();
+    }
+}
+
+void MainWindow::on_filter_button_0_clicked()
+{
+    updateFilterButtons(0);
+}
+
+void MainWindow::on_filter_button_1_clicked()
+{
+    updateFilterButtons(1);
+}
+
+void MainWindow::on_filter_button_2_clicked()
+{
+    updateFilterButtons(2);
+}
+
+void MainWindow::on_filter_button_3_clicked()
+{
+    updateFilterButtons(3);
+}
+
+void MainWindow::on_filter_button_4_clicked()
+{
+    updateFilterButtons(4);
+}
+
+void MainWindow::on_filter_button_5_clicked()
+{
+    updateFilterButtons(5);
+}
+
+void MainWindow::on_filter_button_6_clicked()
+{
+    updateFilterButtons(6);
+}
+
+void MainWindow::on_filter_button_7_clicked()
+{
+    updateFilterButtons(7);
+}
+
+
+
+
+
+
+
+
+
 } // namespace load_cell
-
-
-
