@@ -24,9 +24,9 @@ public:
 	bool init();
 
 	struct rawDataContainer {
-    std::vector<int32_t> l_lc_data;
-    std::vector<int32_t> r_lc_data;
-};
+        std::vector<int32_t> l_lc_data;
+        std::vector<int32_t> r_lc_data;
+    };
 
 	rawDataContainer LC_info; // 시리얼로 읽은 raw 로드셀 데이터 컨테이너
 	humanoid_interfaces::msg::IkComMsg COM_info; // main window의 zmp 연산에서 사용할 COM 정보 컨테이너

@@ -1,3 +1,15 @@
+// ***************** Serial Packit Format ***************
+//
+// LOADCELL <R0> <R1> <R2> <R3> <L0> <L1> <L2> <L3>\n
+//
+// ******************************************************
+//
+// ******************* Example Packit ********************
+//
+// LOADCELL 1234 1240 1300 1280 1400 1380 1320 1390\n
+//
+// ******************************************************
+
 #ifndef SERIAL_RECEIVER_HPP
 #define SERIAL_RECEIVER_HPP
 
@@ -6,6 +18,7 @@
 #include <QSerialPortInfo>
 #include <QByteArray>
 #include <vector>
+#include <iostream>
 
 class SerialReceiver : public QObject
 {

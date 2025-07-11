@@ -53,6 +53,7 @@ public:
     // ********** LoadCell LPF Data container ********** //
     // long int R_LC_Data_Filtering[LC_NUM] = {0,};
     // long int L_LC_Data_Filtering[LC_NUM] = {0,};
+    // ************************************************* // 
 
     long int LC_Zero_Value[LC_NUM] = {0,};
     double LC_Unit_Value[LC_NUM] = {0,};
@@ -103,7 +104,7 @@ public Q_SLOTS:
     void median(int data_1,int data_2,int data_3,int data_4,int data_5,int data_6,int data_7,int data_8);
     long int Low_pass_filter(long int initial_data);
     long int avg(long int x);
-
+    // ********************************** //
 
 private Q_SLOTS:
     // specific Unit Gain Push

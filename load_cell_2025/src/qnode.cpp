@@ -6,7 +6,7 @@ namespace load_cell
 
 QNode::QNode()
 {
-  // ********************** serial port open **********************
+  // ********************** SERIAL RECEIVER INIT  **********************
   serialReceiver = new SerialReceiver();
   serialReceiver->openPort("ttyUSB0",115200);
 
@@ -23,16 +23,18 @@ QNode::QNode()
       LC_info.r_lc_data.push_back(l[2]);
       LC_info.r_lc_data.push_back(l[3]);
 
-      Q_EMIT LC_callback();  // MainWindow 쪽에 신호 보내기
+      Q_EMIT LC_callback();  // MainWindow 쪽으로 신호 전송
 
       LC_info.l_lc_data.clear();
       LC_info.r_lc_data.clear();
   });
-  // ********************** ROS2 NODE INIT **********************
+
+  // ********************** ROS2 NODE INITIALIZE  **********************
 	int argc = 0;
 	char** argv = NULL;
 	rclcpp::init(argc, argv);
 	node = rclcpp::Node::make_shared("load_cell");
+
 	// publisher
 	Zmp_Pub = node->create_publisher<humanoid_interfaces::msg::ZmpMsg>(             // ZMP 메시지 퍼블리셔
 			"zmp", 10);
@@ -41,7 +43,7 @@ QNode::QNode()
 			"COM", 10, std::bind(&QNode::COM_Callback,this,std::placeholders::_1));
 
 	this->start();
-  // ************************************************************
+  // *******************************************************************
 }
 
 QNode::~QNode()
