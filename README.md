@@ -57,35 +57,26 @@ ros2 run load_cell_2025 load_cell_2025
 
 ```
 ## 기능 및 구성 요소
-구성 요소	설명
-MainWindow	Qt 기반 UI / 버튼 핸들링 및 시각화
-QNode	ROS2 인터페이스 관리 (humanoid_interfaces/msg/lc_msgs)
-SerialReceiver	로드셀 MCU로부터 시리얼 데이터 수신
-FilterManager	평균/중앙값/LPF 필터 클래스
-QCustomPlot	실시간 그래프 출력용 외부 라이브러리 (third_party/)
+- 구성 요소	설명
+  - MainWindow	Qt 기반 UI / 버튼 핸들링 및 시각화
+  -  QNode ROS2 인터페이스 관리 (humanoid_interfaces/msg/lc_msgs)
+  - SerialReceiver	로드셀 MCU로부터 시리얼 데이터 수신
+  - FilterManager	평균/중앙값/LPF 필터 클래스
+  - QCustomPlot	실시간 그래프 출력용 외부 라이브러리 (third_party/)
 
 ## 보정 및 파라미터 관리
-보정 값
-Zero Gain (add2zero): 정지 상태에서 로드셀의 오프셋을 제거
-
-Unit Gain (add2unit): 센서 출력을 무게 단위로 환산하는 계수
+- 보정 값
+  - Zero Gain (add2zero): 정지 상태에서 로드셀의 오프셋을 제거
+  - Unit Gain (add2unit): 센서 출력을 무게 단위로 환산하는 계수
 
 ## 개발 환경
-OS: Ubuntu 22.04
-
-ROS 2: Humble
-
-언어: C++17, Qt5
+- OS: Ubuntu 22.04
+- ROS 2: Humble
+- 언어: C++17, Qt5
 
 ## 의존 패키지
-rclcpp
-
-std_msgs
-
-humanoid_interfaces
-
-Qt5 Widgets, Qt5 SerialPort
-
-yaml-cpp
-
-QCustomPlot (third_party/qcustomplot)
+- rclcpp
+- std_msgs
+- humanoid_interfaces
+- Qt5 Widgets, Qt5 SerialPort
+- QCustomPlot (third_party/qcustomplot)
