@@ -12,18 +12,20 @@ int serial_cnt = 0;
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindowDesign)
 {
+    // ***************************** UI INIT *****************************
     ui->setupUi(this);
 
     QIcon icon("://ros-icon.png");
     this->setWindowIcon(icon);
 
     qnode = new QNode();
+    filter_manager = new FilterManager();
 
     setWindowIcon(QIcon(":/images/zmp_icon.png"));
 
-    /// ************************ INIT CUSTOM PLOT *************************
+    // ************************ INIT QCUSTOMPLOT *************************
 
-    Plot_init();         // 그래프 등록
+    Plot_init();         // plot 등록
     plotArtist();
 
     QObject::connect(qnode, SIGNAL(rosShutDown()), this, SLOT(close()));
@@ -33,7 +35,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(timer, &QTimer::timeout, this, &MainWindow::plotArtist);
     connect(timer, SIGNAL(timeout()),this, SLOT(update()));
 
-    // *********************************************************************
+    // *************************** WORK FILE OPEN *******************************
 
     ui->LC_Zero_Gain_00->setReadOnly(true);
     ui->LC_Zero_Gain_01->setReadOnly(true);
@@ -442,6 +444,25 @@ void MainWindow::Zero_reset(int foot_what)
 
 }
 
+int compare(const void *a, const void *b)
+{
+    const int* x = (int*)a;
+    const int* y = (int*)b;
+
+    if(*x > *y)
+    {
+        return 1;
+    }
+    else if(*x < *y)
+    {
+        return -1;
+    }
+
+    return 0;
+}
+
+// ********************** FILTER FUNCTIONS ************************
+
 long int MainWindow::Low_pass_filter(long int initial_data)
 {
     double Sampling_time = 0.01;//Load_cell data time (s)
@@ -459,7 +480,6 @@ long int MainWindow::Low_pass_filter(long int initial_data)
     return Output;
 }
 
-
 long int MainWindow::avg(long int x)
 {
     unsigned char i;
@@ -470,23 +490,6 @@ long int MainWindow::avg(long int x)
     average = sum / FILTERDATA;
     //     sort(data,data+FILTERDATA);//
     return /*data[4];*/ average;
-}
-
-int compare(const void *a, const void *b)
-{
-    const int* x = (int*)a;
-    const int* y = (int*)b;
-
-    if(*x > *y)
-    {
-        return 1;
-    }
-    else if(*x < *y)
-    {
-        return -1;
-    }
-
-    return 0;
 }
 
 void MainWindow::median(int data_1,int data_2,int data_3,int data_4,int data_5,int data_6,int data_7,int data_8)
@@ -526,6 +529,8 @@ void MainWindow::median(int data_1,int data_2,int data_3,int data_4,int data_5,i
         //        load_cell_Value__[i] = median[i];
     }
 }
+
+// *********************** PLOT FUNCTIONS ************************
 
 void MainWindow::update()
 {
@@ -962,11 +967,11 @@ void MainWindow::on_yScaleSlider_valueChanged(int value)
 // ********************************** QCUSTOMPLOT MANAGE ***************************************
 void MainWindow::registerPlot(const QString& name, QCustomPlot* plot, bool fixedYAxis) // called by plot_init
 {
-    // 2022년도 버전의 Plot_init()을 리팩토링함
     plot_map[name] = plot;
 
     plot->addGraph();
     plot->graph(0)->setPen(QPen(Qt::red));
+    plot->graph(0)->setName("raw");
     plot->setBackground(QColor(255,255,255));
 
     QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
@@ -1004,7 +1009,17 @@ void MainWindow::registerPlot(const QString& name, QCustomPlot* plot, bool fixed
     }
     else
     {
-        // *********** ??? *--********
+        plot->addGraph(); // graph(1): avg
+        plot->graph(1)->setPen(QPen(Qt::blue));
+        plot->graph(1)->setName("avg");
+
+        plot->addGraph(); // graph(2): median
+        plot->graph(2)->setPen(QPen(Qt::green));
+        plot->graph(2)->setName("median");
+
+        plot->addGraph(); // graph(3): lpf
+        plot->graph(3)->setPen(QPen(Qt::magenta));
+        plot->graph(3)->setName("lpf");
     }
 }
 
@@ -1012,8 +1027,9 @@ void MainWindow::Plot_init()
 {
     registerPlot("LR", ui->customPlot_LR, true);
     registerPlot("FB", ui->customPlot_FB, true);
-    registerPlot("Filter", ui->customPlot_raw_data);
+    registerPlot("Filter", ui->customPlot_raw_data, false);
 }
+
 
 void MainWindow::plotArtist() // make_plot
 {
@@ -1024,44 +1040,82 @@ void MainWindow::plotArtist() // make_plot
 
 // *************************** ADD ADITIONAL PLOT DATA HERE ******************************
 
-    plot_data["LR"].append(qMakePair(key, T_Pos_X_Coordinate));
-    plot_data["FB"].append(qMakePair(key, T_Pos_Y_Coordinate));
+    plot_data["LR_raw"].append(qMakePair(key, T_Pos_X_Coordinate));
+    plot_data["FB_raw"].append(qMakePair(key, T_Pos_Y_Coordinate));
+
+    filter_manager->setRawInput(std::vector<double>(std::begin(LC_Unit_Value), std::end(LC_Unit_Value)));
+
+    // calibration data
+    if (ui->manager_on->isChecked()) {
+        plot_data["Filter_raw"].append(qMakePair(key,
+        LC_Unit_Value[selected_sensor_index]));
+    }
+
+    // avg + lpf
+    if (ui->avg_lpf->isChecked()) {
+        filter_manager->applyAvg_LPF();
+        double avg_value = avg(LC_Unit_Value[selected_sensor_index]); // avg 필터된 값
+        plot_data["Filter_avg"].append(qMakePair(key,
+        filter_manager->getFilteredValues()[selected_sensor_index]));
+    }
+
+    // median + lpf
+    if (ui->median_lpf->isChecked()) {
+        filter_manager->applyMedian_LPF();
+        plot_data["Filter_median"].append(qMakePair(key,
+        filter_manager->getFilteredValues()[selected_sensor_index]));
+    }
+
+    // LPF만
+    if (ui->lpf->isChecked()) {
+        filter_manager->applyLPF();
+        plot_data["Filter_lpf"].append(qMakePair(key,
+        filter_manager->getFilteredValues()[selected_sensor_index]));
+    }
 
 // *************************** ADD ADITIONAL PLOT DATA HERE ******************************
 
-    if (ui->manager_on->isChecked()) // FILTER PLOT PAGE
-    {
-        plot_data["Filter"].append(qMakePair(key, LC_Unit_Value[selected_sensor_index]));
-
-        cout << "LC_Unit_Value[selected_sensor_index]:"<< LC_Unit_Value[selected_sensor_index] << endl;
-    }
+    // plot_name (plot_map의 키값) : "LR", "FB", "Filter"
+    // key_name (plot_data의 키값) : "LR_raw", "FB_raw", "Filter_raw", "Filter_avg", "Filter_median", "Filter_lpf"
+    // Qcustomplot 객체에 매핑된 이름에 "_raw", "_avg", "_median", "_lpf"를 붙여서 개별 그래프를 관리함
 
     for (auto it = plot_map.begin(); it != plot_map.end(); ++it)
     {
-        const QString& name = it.key();
+        const QString& plot_name = it.key();
         QCustomPlot* plot = it.value();
-        QVector<QPair<double, double>>& data = plot_data[name];
 
-        if (data.size() > 1000)                  // PLOT 초기화 문제시 삭제 필요
-            data.remove(0, data.size() - 1000);
+        int graph_count = 1;
 
-        QVector<double> x, y;
+        if(plot->graphCount() > 1) graph_count = 4;
+        else graph_count = plot->graphCount();
 
-        for (const auto& p : data) {
-            x.append(p.first);
-            y.append(p.second);
+        for (int i = 0; i < graph_count; ++i)
+        {
+            QString key_name = plot_name + "_" + plot->graph(i)->name();
+            QVector<QPair<double, double>>& data = plot_data[key_name];
+
+            if (data.size() > 1000)
+                data.remove(0, data.size() - 1000);
+
+            QVector<double> x, y;
+            for (const auto& p : data) {
+                x.append(p.first);
+                y.append(p.second);
+            }
+
+            plot->graph(i)->setData(x, y);
+            plot->xAxis->setRange(x.last(), 100, Qt::AlignRight);
         }
 
-        plot->graph(0)->setData(x, y);
-        plot->xAxis->setRange(x.last(), 100, Qt::AlignRight);
-
-        if (name != "LR" && name != "FB") {
+        if (plot_name != "LR" && plot_name != "FB") {
             int yRange = ui->yScaleSlider->value();
             plot->yAxis->setRange(-yRange, yRange);
         }
+
         plot->replot();
     }
 }
+// ************************** FILTER PLOT UI BUTTONS ******************************
 
 void MainWindow::on_filter_button_0_clicked()
 {
@@ -1103,12 +1157,19 @@ void MainWindow::on_filter_button_7_clicked()
     updateFilterButtons(7);
 }
 
+void MainWindow::on_avg_lpf_checkStateChanged(const Qt::CheckState &arg1)
+{
 
+}
 
+void MainWindow::on_median_lpf_checkStateChanged(const Qt::CheckState &arg1)
+{
 
+}
 
+void MainWindow::on_lpf_checkStateChanged(const Qt::CheckState &arg1)
+{
 
-
-
+}
 
 } // namespace load_cell

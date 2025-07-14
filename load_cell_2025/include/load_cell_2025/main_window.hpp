@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "QIcon"
 #include "qnode.hpp"
+#include "filter_manager.hpp"
 #include "ui_main_window.h"
 #include <QtGui>
 #include <QtSerialPort/QSerialPort>
@@ -143,18 +144,26 @@ private Q_SLOTS:
     void on_filter_button_5_clicked();
     void on_filter_button_6_clicked();
     void on_filter_button_7_clicked();
+
+    void on_avg_lpf_checkStateChanged(const Qt::CheckState &arg1);
+    void on_median_lpf_checkStateChanged(const Qt::CheckState &arg1);
+    void on_lpf_checkStateChanged(const Qt::CheckState &arg1);
+
 private:
 
 // ***************** QCUSTOMPLOT MANAGE *********************
 
+    // plot_map: Qcustomplot 객체의 이름과 객체를 매핑
+    // plot_data: plot_map의 키에 "_data"를 붙인 키와 plot할 좌표를 매핑
+
     QMap<QString, QCustomPlot*> plot_map;
-    QMap<QString, QVector<QPair<double, double>>> plot_data; // for storing plot data
+    QMap<QString, QVector<QPair<double, double>>> plot_data;
     QElapsedTimer plot_timer;
 
     int selected_sensor_index = -1;
     bool plot_enabled = false;
 
-    void registerPlot(const QString& name, QCustomPlot* plot, bool fixedYAxis = false);
+    void registerPlot(const QString& name, QCustomPlot* plot, bool fixedYAxis);
     void Plot_init();
     void plotArtist();
 
@@ -194,9 +203,9 @@ private:
                 button->setEnabled(i != selected_index);  // 자기 자신은 비활성화
         }
     };
-// *****************************************************************
+// ************************** FILTER MANAGER *****************************
+FilterManager* filter_manager;
 };
 
 }  // namespace load_cell
-
 #endif // load_cell_MAIN_WINDOW_H
