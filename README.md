@@ -1,4 +1,4 @@
-# LoadCell_2025
+# Load_Cell_2025
 
 > **휴머노이드 로봇 발바닥 로드셀 센서**의 실시간 시각화 및 보정 및 com 기반 zmp 계산을 제공하는 ROS 2 기반 GUI 패키지  
 > Ubuntu 22.04 + ROS 2 Humble 환경에서 작동합니다.
@@ -62,7 +62,6 @@ MainWindow	Qt 기반 UI / 버튼 핸들링 및 시각화
 QNode	ROS2 인터페이스 관리 (humanoid_interfaces/msg/lc_msgs)
 SerialReceiver	로드셀 MCU로부터 시리얼 데이터 수신
 FilterManager	평균/중앙값/LPF 필터 클래스
-CalibrationManager	보정값(YAML) 저장 및 불러오기 기능
 QCustomPlot	실시간 그래프 출력용 외부 라이브러리 (third_party/)
 
 ## 보정 및 파라미터 관리
@@ -70,15 +69,6 @@ QCustomPlot	실시간 그래프 출력용 외부 라이브러리 (third_party/)
 Zero Gain (add2zero): 정지 상태에서 로드셀의 오프셋을 제거
 
 Unit Gain (add2unit): 센서 출력을 무게 단위로 환산하는 계수
-
-관련 파일
-
-버튼 기능
-Insert: 현재 로드셀 데이터를 zero gain으로 저장
-
-Save: 현재 보정값을 TXT 파일로 저장
-
-Load: 보정값을 불러와 적용
 
 ## 개발 환경
 OS: Ubuntu 22.04
